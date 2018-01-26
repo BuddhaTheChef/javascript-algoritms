@@ -148,68 +148,133 @@
 ////////////////////////////////////////////////////////////////////////////////
 //                                 Ceaser Cipher
 
-function caesarCipher(str,num) {
-  num = num % 26;
-  var lowerCaseString = str.toLowerCase();
-  var alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-  var newString = '';
+// function caesarCipher(str,num) {
+//   num = num % 26;
+//   var lowerCaseString = str.toLowerCase();
+//   var alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+//   var newString = '';
+//
+//   for (var i = 0; i < lowerCaseString.length; i++) {
+//     var currentLetter = lowerCaseString[i];
+//     if (currentLetter === ' ') {
+//       newString += currentLetter;
+//       continue;
+//     }
+//     var currentIndex = alphabet.indexOf(currentLetter);
+//     var newIndex = currentIndex + num;
+//     if (newIndex > 25) newIndex = newIndex - 26;
+//     if (newIndex < 0) newIndex = 26 + newIndex;
+//     if (str[i] === str[i].toUpperCase()) {
+//       newString += alphabet[newIndex].toUpperCase();
+//     }
+//     else newString += alphabet[newIndex];
+//   }
+//
+//   return newString;
+// }
+// caesarCipher('Poo Keeper', 2);
+// caesarCipher('Big Car', -16);
+// caesarCipher('Javascript', -900);
+//
+// ////////////////////////////////////////////////////////////////////////////////
+// //                               Reverse Words
+//
+// function reverseWords(string) {
+//   var newString = string.toLowerCase().split(' ')
+//   var reversedWordsArray = [];
+//
+//   newString.forEach(word => {
+//     var reversedWord = '';
+//     for(var i = word.length - 1; i>=0; i--){
+//       reversedWord += word[i];
+//     }
+//     reversedWordsArray.push(reversedWord);
+//   })
+//   return reversedWordsArray.join(' ');
+// }
+//
+// reverseWords('Hi My name is Aj');
+// reverseWords('Coding Javascript');
+//
+// ////////////////////////////////////////////////////////////////////////////////
+// //                          Reverse Array In Place
+//
+// function reverseArrayInPlace(arr) {
+//   for (var i = 0; i < arr.length /2; i++){
+//     var tempVar = arr[i];
+//     arr[i] = arr[arr.length - 1 - i];
+//     arr[arr.length - 1 - i] = tempVar;
+//   }
+//   return arr;
+// }
+//
+// reverseArrayInPlace([0,1,2,3,4,5,6,7,7,8,9,10]);
+// reverseArrayInPlace([20,18,16,14,12,10,8,6,4,2]);
 
-  for (var i = 0; i < lowerCaseString.length; i++) {
-    var currentLetter = lowerCaseString[i];
-    if (currentLetter === ' ') {
-      newString += currentLetter;
-      continue;
-    }
-    var currentIndex = alphabet.indexOf(currentLetter);
-    var newIndex = currentIndex + num;
-    if (newIndex > 25) newIndex = newIndex - 26;
-    if (newIndex < 0) newIndex = 26 + newIndex;
-    if (str[i] === str[i].toUpperCase()) {
-      newString += alphabet[newIndex].toUpperCase();
-    }
-    else newString += alphabet[newIndex];
-  }
-
-  return newString;
-}
-caesarCipher('Poo Keeper', 2);
-caesarCipher('Big Car', -16);
-caesarCipher('Javascript', -900);
 
 ////////////////////////////////////////////////////////////////////////////////
-//                               Reverse Words
+//                              Mean Median Mode
 
-function reverseWords(string) {
-  var newString = string.toLowerCase().split(' ')
-  var reversedWordsArray = [];
-
-  newString.forEach(word => {
-    var reversedWord = '';
-    for(var i = word.length - 1; i>=0; i--){
-      reversedWord += word[i];
-    }
-    reversedWordsArray.push(reversedWord);
+function getMean(array){
+  var sum = 0;
+  array.forEach(num => {
+    sum += num;
   })
-  return reversedWordsArray.join(' ');
+  var mean = sum / array.length;
+  return mean;
 }
 
-reverseWords('Hi My name is Aj');
-reverseWords('Coding Javascript');
 
-////////////////////////////////////////////////////////////////////////////////
-//                          Reverse Array In Place
 
-function reverseArrayInPlace(arr) {
-  for (var i = 0; i < arr.length /2; i++){
-    var tempVar = arr[i];
-    arr[i] = arr[arr.length - 1 - i];
-    arr[arr.length - 1 - i] = tempVar;
+function getMedian(array){
+  array.sort(function(a,b) { return a - b });
+  var median;
+  if(array.length % 2 !== 0){
+    median = array[Math.floor(array.length / 2)];
   }
-  return arr;
+  else {
+    var mid1 = array[(array.length / 2) - 1]
+    var mid2 = array[array.length / 2]
+    median = (mid1 + mid2) / 2;
+
+  }
+  return median;
 }
 
-reverseArrayInPlace([0,1,2,3,4,5,6,7,7,8,9,10]);
-reverseArrayInPlace([20,18,16,14,12,10,8,6,4,2]);
+
+
+function getMode(array){
+  var modeObj = {};
+
+  array.forEach(num => {
+    if(!modeObj[num]) modeObj[num] = 0;
+    modeObj[num]++;
+  });
+  var maxFrequency = 0;
+  var modes = [];
+  for (var num in modeObj) {
+    if(modeObj[num] > maxFrequency){
+      modes = [num];
+      maxFrequency = modeObj[num];
+    }
+    else if (modeObj[num] === maxFrequency) modes.push(num);
+  }
+ if (modes.length === Object.keys(modeObj).length) modes = [];
+ return modes;
+}
+
+
+
+function meanMedianMode(array){
+  return {
+    mean : getMean(array),
+    mode: getMode(array),
+    median: getMedian(array)
+  };
+}
+
+meanMedianMode([1,2,3,4,5,4,6,1,1])
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
