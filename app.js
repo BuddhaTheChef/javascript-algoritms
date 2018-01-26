@@ -299,7 +299,30 @@ twoSum([1,6,4,5,3,3],7);
 twoSum([40,11,19,17,-12], 28);
 
 ////////////////////////////////////////////////////////////////////////////////
+//                           Recursion example
+
+//Recursion when a function calls itself
+//Call Stack - what order function is being called with what variables
+//Factorial(!)
+//4! = 4 * 3 * 2 * 1 = 24
+
+function factorial(num) {
+  if(num === 1) {
+    return num;
+  }
+  else {
+    return num * factorial(num-1);
+  }
+}
+
+factorial(5);
+
+
+////////////////////////////////////////////////////////////////////////////////
 //                              Binary Search
+
+
+
 
 
 
