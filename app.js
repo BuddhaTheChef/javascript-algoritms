@@ -215,126 +215,170 @@
 ////////////////////////////////////////////////////////////////////////////////
 //                              Mean Median Mode
 
-function getMean(array){
-  var sum = 0;
-  array.forEach(num => {
-    sum += num;
-  })
-  var mean = sum / array.length;
-  return mean;
+// function getMean(array){
+//   var sum = 0;
+//   array.forEach(num => {
+//     sum += num;
+//   })
+//   var mean = sum / array.length;
+//   return mean;
+// }
+//
+//
+//
+// function getMedian(array){
+//   array.sort(function(a,b) { return a - b });
+//   var median;
+//   if(array.length % 2 !== 0){
+//     median = array[Math.floor(array.length / 2)];
+//   }
+//   else {
+//     var mid1 = array[(array.length / 2) - 1]
+//     var mid2 = array[array.length / 2]
+//     median = (mid1 + mid2) / 2;
+//
+//   }
+//   return median;
+// }
+//
+//
+//
+// function getMode(array){
+//   var modeObj = {};
+//
+//   array.forEach(num => {
+//     if(!modeObj[num]) modeObj[num] = 0;
+//     modeObj[num]++;
+//   });
+//   var maxFrequency = 0;
+//   var modes = [];
+//   for (var num in modeObj) {
+//     if(modeObj[num] > maxFrequency){
+//       modes = [num];
+//       maxFrequency = modeObj[num];
+//     }
+//     else if (modeObj[num] === maxFrequency) modes.push(num);
+//   }
+//  if (modes.length === Object.keys(modeObj).length) modes = [];
+//  return modes;
+// }
+//
+//
+//
+// function meanMedianMode(array){
+//   return {
+//     mean : getMean(array),
+//     mode: getMode(array),
+//     median: getMedian(array)
+//   };
+// }
+//
+// meanMedianMode([1,2,3,4,5,4,6,1,1])
+//
+//
+//
+// ////////////////////////////////////////////////////////////////////////////////
+// //                                  Two Sum
+//
+// function twoSum(numArray, sum) {
+//   var pairs = [];
+//   var hashtable = [];
+//
+//   for(var i = 0; i < numArray.length; i++) {
+//     var curNum = numArray[i];
+//     var counterpart = sum - curNum;
+//     if(hashtable.indexOf(counterpart) !== -1) {
+//       pairs.push([curNum, counterpart]);
+//     }
+//     hashtable.push(curNum);
+//   }
+//   return pairs;
+// }
+//
+// twoSum([1,6,4,5,3,3],7);
+// twoSum([40,11,19,17,-12], 28);
+//
+// ////////////////////////////////////////////////////////////////////////////////
+// //                           Recursion example
+//
+// //Recursion when a function calls itself
+// //Call Stack - what order function is being called with what variables
+// //Factorial(!)
+// //4! = 4 * 3 * 2 * 1 = 24
+//
+// function factorial(num) {
+//   if(num === 1) {
+//     return num;
+//   }
+//   else {
+//     return num * factorial(num-1);
+//   }
+// }
+//
+// factorial(5);
+//
+//
+// ////////////////////////////////////////////////////////////////////////////////
+// //                              Binary Search
+//
+// //takes in two parameters an arrauy and an index
+// function binarySearch(numArray, key) {
+//   //sets up var to be the value in the middle of array and if there is two possibilities it would go to the lower one
+//   var middleIndex = Math.floor(numArray.length / 2);
+//   //sets up the index to be equal to the number in array
+//   var middleElem = numArray[middleIndex];
+//
+// //if the correct number is landed on it returns the answer
+//   if(middleElem === key) return true;
+//
+//   //else if the middle number is less then the number give and there is still more length in array
+//   else if(middleElem < key && numArray.length > 1) {
+//     //call the function splicing everything in front of the selected number and calculating rest
+//     return binarySearch(numArray.splice(middleIndex, numArray.length), key);
+//   }
+//   //else if the middle number is more then the number give and there is still more length in array
+//   else if(middleElem > key && numArray.length > 1) {
+//     //call the function splicing everything behind the selected number and calculating rest
+//     return binarySearch(numArray.splice(0, middleIndex), key);
+//   }
+//   else return false;
+// }
+//
+// binarySearch([5,7,12,16,36,39,42,56,71], 56);
+
+////////////////////////////////////////////////////////////////////////////////
+//                            Fibonaci Sequence
+
+function fibonacci(position) {
+  if(position < 3) {
+    return 1;
+  }
+  else return fibonacci(position - 1) + fibonacci(position - 2);
 }
 
+fibonacci(4);
+fibonacci(9);
 
+////////////////////////////////////////////////////////////////////////////////
 
-function getMedian(array){
-  array.sort(function(a,b) { return a - b });
-  var median;
-  if(array.length % 2 !== 0){
-    median = array[Math.floor(array.length / 2)];
-  }
+//                           Fibonaci Memorized
+
+function fibonacci(index, cache) {
+  cache = cache || [];
+  if (cache[index]) return cache[index];
   else {
-    var mid1 = array[(array.length / 2) - 1]
-    var mid2 = array[array.length / 2]
-    median = (mid1 + mid2) / 2;
-
-  }
-  return median;
-}
-
-
-
-function getMode(array){
-  var modeObj = {};
-
-  array.forEach(num => {
-    if(!modeObj[num]) modeObj[num] = 0;
-    modeObj[num]++;
-  });
-  var maxFrequency = 0;
-  var modes = [];
-  for (var num in modeObj) {
-    if(modeObj[num] > maxFrequency){
-      modes = [num];
-      maxFrequency = modeObj[num];
+    if(index < 3 ) return 1;
+    else {
+      cache[index] = fibonacci(index - 1, cache) + fibonacci(index -2, cache);
     }
-    else if (modeObj[num] === maxFrequency) modes.push(num);
   }
- if (modes.length === Object.keys(modeObj).length) modes = [];
- return modes;
+  return cache[index];
 }
 
 
-
-function meanMedianMode(array){
-  return {
-    mean : getMean(array),
-    mode: getMode(array),
-    median: getMedian(array)
-  };
-}
-
-meanMedianMode([1,2,3,4,5,4,6,1,1])
+fibonacci(12);
 
 
 
-////////////////////////////////////////////////////////////////////////////////
-//                                  Two Sum
-
-function twoSum(numArray, sum) {
-  var pairs = [];
-  var hashtable = [];
-
-  for(var i = 0; i <numArray.length; i++) {
-    var curNum = numArray[i];
-    var counterpart = sum - curNum;
-    if(hashtable.indexOf(counterpart) !== -1) {
-      pairs.push([curNum, counterpart]);
-    }
-    hashtable.push(curNum);
-  }
-  return pairs;
-}
-
-twoSum([1,6,4,5,3,3],7);
-twoSum([40,11,19,17,-12], 28);
-
-////////////////////////////////////////////////////////////////////////////////
-//                           Recursion example
-
-//Recursion when a function calls itself
-//Call Stack - what order function is being called with what variables
-//Factorial(!)
-//4! = 4 * 3 * 2 * 1 = 24
-
-function factorial(num) {
-  if(num === 1) {
-    return num;
-  }
-  else {
-    return num * factorial(num-1);
-  }
-}
-
-factorial(5);
-
-
-////////////////////////////////////////////////////////////////////////////////
-//                              Binary Search
-
-function binarySearch(numArray, key) {
-  var middleIndex = Math.floor(numArray.length / 2);
-  var middleElem = numArray[middleIndex];
-
-  if(middleElem === key) return true;
-  else if(middleElem < key && numArray.length > 1) {
-    return binarySearch(numArray.splice(middleIndex, numArray.length), key);
-  }
-  else if(middleElem > key && numArray.length > 1) {
-    return binarySearch(numArray.splice(0, middleIndex), key);
-  }
-  else return false;
-}
-
-binarySearch([5,7,12,16,36,39,42,56,71], 56);
 
 ////////////////////////////////////////////////////////////////////////////////
