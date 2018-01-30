@@ -457,3 +457,34 @@ mergeSort([6000,34,203,3,746,200,984,198,764,1,9,1])
 mergeSort([100,-20,40,-30,16,-100,-101])
 
 ////////////////////////////////////////////////////////////////////////////////
+//                           Max Stock Profit
+
+function maxStockProfit(pricesArr) {
+  var maxProfit = -1;
+  var buyPrice = 0;
+  var sellPrice = 0;
+
+  var changeBuyPrice = true;
+
+  for(var i = 0; i < pricesArr.length; i++) {
+    if(changeBuyPrice) buyPrice = pricesArr[i];
+    sellPrice = pricesArr[i + 1];
+
+    if(sellPrice < buyPrice) {
+      changeBuyPrice = true;
+    }
+    else {
+      var tempProfit = sellPrice - buyPrice;
+      if(tempProfit > maxProfit) maxProfit = tempProfit;
+      changeBuyPrice = false;
+    }
+  }
+
+  return "Your Profit is " + maxProfit;
+}
+
+maxStockProfit([32,46,26,38,40,48,42]);
+
+maxStockProfit([10,18,4,5,9,6,16,12])
+
+////////////////////////////////////////////////////////////////////////////////
